@@ -1,2 +1,4 @@
 # 忽略obsidian配置文件夹
 .obsidian/
+
+.ipynb_checkpoints/

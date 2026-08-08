@@ -1,8 +1,25 @@
 ## PyCharm
 ### 快捷键
-![](assets/python_basic/file-20260807005852827.png)
-Ctrl+Shift+u 对选中的字符切换大小写
-Ctrl+Alt+enter 在当前行的上一行插入空行
+
+| 快捷键                       | 对应操作            |
+| ------------------------- | --------------- |
+| Ctrl + /                  | 行注释（可选中多行）      |
+| Ctrl + Alt + L            | 代码格式化           |
+| Ctrl + C                  | 复制当前行 / 复制选定的代码 |
+| Ctrl + D                  | 重复当前行 / 重复选定的代码 |
+| Ctrl + Z                  | 撤销              |
+| Ctrl + Y                  | 删除当前行 / 反撤销(重做) |
+| Ctrl + X                  | 复制当前行 / 剪切选定的代码 |
+| Ctrl + = / -              | 展开 / 折叠当前代码块    |
+| Ctrl + Backspace / Delete | 向前 / 向后删除一个单词   |
+| Ctrl + Shift + ↑ / ↓      | 将当前行上移 或 下移     |
+| Ctrl + F / R              | 查找 / 替换         |
+| Tab / Shift + Tab         | 缩进 / 反向缩进       |
+| Shift + Enter             | 换行（光标不在结尾处也可换行） |
+| Ctrl + P                  | 查看方法传参          |
+| Ctrl+Shift+U              | 对选中的字符切换大小写     |
+| Ctrl+Alt+Enter            | 在当前行的上一行插入空行    |
+
 ### 导入、导出PyCharm的设置
 - 导出：`File` → `Manage IDE Settings` → **Export Settings…**，选择保存位置，输出文件为 `settings.zip`，点 OK 完成导出
 - 导入：`File` → `Manage IDE Settings` → **Import Settings…**，选中 `settings.zip`，重启 PyCharm 生效
@@ -223,4 +240,184 @@ print('ab\tcd')
 print('abc\td')  
 print('abcd\ta')  
 print('我是\t中文')
+```
+### 布尔类型 boolean
+`True` `False`
+```python
+
+```
+## 数据类型转换
+- 为什么要进行数据类型转换
+	- 用户输入的内容是都是字符串，若需要进行数学运算，就必须进行数据类型转换。
+	- 对文件进行写入操作时，要将其他类型的数据转为字符串。
+	- 从数据库中读取出的内容都是字符串，若需要进行数学运算，也需要数据类型转换。
+- 把指定数据转为字符串：`str()`
+	- 任何类型都可以转成字符串类型
+```python
+# 使用str()将指定数据类型转换为字符串。  
+result1 = str(18)  
+result2 = str(75.6)  
+result3 = str(1.8E3)  
+result4 = str(12_000)
+```
+- 把指定数据转为整型：`int()`
+```python
+# 使用int()将指定数据类型转换为整型。  
+result1 = int(15.6)  
+result2 = int('79')  
+result3 = int('   79   ')  
+result4 = int(48)  
+# 以下是错误示例  
+# int('  7 9  ')  
+# int('你好')  
+# int('15.6')  #特别注意
+```
+- 把指定数据转为浮点型：`float()`
+```python
+# 使用float()将指定数据类型转换为浮点型。  
+result1 = float(18)  
+result2 = float('15.6')  
+result3 = float('  5.7  ')  
+result4 = float(14.8)  
+result5 = float('89')  
+  
+# 以下是错误示例  
+# float(' 5.  7 ')  
+# float('你好')  
+# float('5.23.534')
+```
+- 把指定内容转为布尔类型：`bool()`
+```python
+# 布尔类型是int类型的子类型，底层的本质是用1表示True，用0表示False  
+print(int(True))  # 1  
+print(int(False))  # 0  
+  
+# print(4 + True)  
+# print(8 - False)  
+
+# print(True + True)  
+# print(True - False) 
+ 
+# print(7 > True)  
+# print(False <= 0)  
+  
+# 使用bool()将指定内容转为布尔类型  
+print(bool(1))  # True  
+print(bool(0))  # False  
+  
+# Python中除0以外的任何数，转为布尔值后都为True  
+print(bool(300))  
+print(bool(25.6))  
+print(bool(1.8e3))  
+print(bool(12_000))  
+print(bool(-10))  # True  
+  
+# Python中除空字符串以外的任何字符串，转为布尔值都是True  
+print(bool('hello'))  
+print(bool('0'))  
+print(bool('18.5'))  
+print(bool('-9'))  
+print(bool(''))  # False
+```
+## 运算符
+### 算数运算符
+
+| 运算符 | 说明      | 示例     | 结果  |
+| --- | ------- | ------ | --- |
+| +   | 加       | 9 + 7  | 16  |
+| -   | 减       | 7 - 2  | 5   |
+| *   | 乘       | 3 * 4  | 12  |
+| /   | 除       | 9 / 6  | 1.5 |
+| //  | 取整除（取整） | 9 // 6 | 1   |
+| %   | 取余（取模）  | 9 % 6  | 3   |
+| **  | 指数      | 2 ** 3 | 8   |
+|     |         |        |     |
+### 赋值运算符 & 复合赋值运算符
+
+| 运算符 | 含义     | 示例            | 等价代码                   |
+| --- | ------ | ------------- | ---------------------- |
+| =   | 赋值运算   | age = 18      |                        |
+| +=  | 加法赋值运算 | age += 1      | age = age + 1          |
+| -=  | 减法赋值运算 | age -= 1      | age = age - 1          |
+| *=  | 乘法赋值运算 | price *= 0.8  | price = price * 0.8    |
+| /=  | 除法赋值运算 | pay /= 5      | pay = pay / 5          |
+| //= | 取整赋值运算 | apple //= 14  | apple = apple // 14    |
+| %=  | 取模赋值运算 | seconds %= 60 | seconds = seconds % 60 |
+| **= | 指数赋值运算 | a **= b       | a = a ** b             |
+### 比较运算符
+
+| 运算符 | 作用           |
+| --- | ------------ |
+| ==  | 判断左右两侧是否相等   |
+| !=  | 判断左右两侧是否不等   |
+| >   | 判断左侧是否大于右侧   |
+| <   | 判断左侧是否小于右侧   |
+| >=  | 判断左侧是否大于等于右侧 |
+| <=  | 判断左侧是否小于等于右侧 |
+- Python中字符串进行比较时，是依次比较每个字符的Unicode编码。
+- Unicode 编码不是Python特有的，而是全世界通用的标准。例如 `a` 的Unicode编码是97，`我`是25105
+- Python中可以使用如下方式进行字符与Unicode编码之间的转化
+	- 使用`ord()`查看Unicode 码
+	- 使用`chr()`将Unicode 码转为字符
+```python
+# 使用ord()查看指定字符的Unicode编码  
+print(ord('a'))  # 97  
+print(ord('我'))  # 25105  
+print(ord('中'))  # 20013  
+  
+# 使用chr()将Unicode编码转为字符  
+print(chr(97))  
+print(chr(25105))  
+  
+msg1 = 'abc'  
+msg2 = 'xyz'  
+msg3 = '我爱你'  
+msg4 = '中国'  
+msg5 = 'abc'  
+msg6 = 'abcdef'  
+print(msg1 == msg5)  # True  
+print(msg1 < msg2)  # True  
+print(msg3 > msg4)  
+print(msg5 < msg6)
+```
+### 逻辑运算符
+
+| 运算符 | 名称   | 功能描述                                   |
+|--------|--------|--------------------------------------------|
+| and    | 逻辑与 | 判断其两侧的值，是否都为True               |
+| or     | 逻辑或 | 判断其两侧的值，是否至少有一个为True       |
+| not    | 逻辑非 | 用于对一个值取反                           |
+```python
+# and具备"逻辑短路"能力  
+print(False and 3 / 0)  # False  
+print(3 > 9 and 3 / 0)  # False  
+# print(True and 3 / 0)  # ZeroDivisionError  
+  
+# and返回的不一定是布尔值，它返回的是某个参与计算的值本身  
+# 规则：and会先看左边，如果左边是“假”，就直接返回左边，否则返回右边  
+# 备注：若参与and运算的值不是布尔值，那Python会自动转为布尔值，然后再进行逻辑操作  
+print(2 - 2 and True)  # 0  
+print('' and True)  # 空字符串  
+print(True and 8 / 2)  # 4.0  
+print(3 + 3 and 3 * 4)  # 12  
+  
+# or用于判断其两侧，是否至少有一个为True（只要有一个是True，那就返回True）  
+# or同样具有“逻辑短路”的能力  
+print(True or 3 / 0)  
+  
+# or返回的也不一定是布尔值，它返回的是参与计算的值本身  
+# 规则：or会先看左边，如果左边为“真”，就直接返回左边，否则返回右边  
+# 备注：若参与or运算的值不是布尔值，那Python会自动转为布尔值，然后再进行逻辑操作  
+print(7 - 2 or False)  # 5  
+print('你好' or '尚硅谷')  # 你好  
+print(False or 8 / 2)  # 4.0  
+print(2 - 2 or 3 * 4)  # 12  
+  
+# not用于取反  
+# 备注：若参与not运算的值不是布尔值，那Python会自动转为布尔值，然后再进行逻辑操作  
+# not返回的值，一定是布尔值!  
+print(not 0)  # True  
+print(not 3 > 2)  # False  
+print(not 9 // 4)  # False  
+print(not 'abc')  # False
 ```
