@@ -421,3 +421,155 @@ print(not 3 > 2)  # False
 print(not 9 // 4)  # False  
 print(not 'abc')  # False
 ```
+## 进制
+binary  octal  decimal  hexadecimal
+
+| 写法      | 功能                   | 示例                                                                                                                |
+| ------- | -------------------- | ----------------------------------------------------------------------------------------------------------------- |
+| `bin()` | 将十进制整数转为二进制==字符串==   | `bin(25)` → `'0b11001'`                                                                                           |
+| `oct()` | 将十进制整数转为八进制==字符串==   | `oct(540)` → `'0o1034'`                                                                                           |
+| `hex()` | 将十进制整数转为十六进制==字符串==  | `hex(463)` → `'0x1cf'`                                                                                            |
+| `int()` | 把其他进制数字字符串转十进制==整数== | 二进制转十进制：`int('0b11001',2)` →`25`<br><br>八进制转十进制：`int('0o1034',8)` →`540`<br><br>十六进制转十进制：`int('0x1cf',16)` →`463` |
+
+```python
+# 0b开头表示二进制  
+num1 = 0b11001  
+# 0o开头表示八进制  
+num2 = 0o1034  
+# 0x开头表示十六进制  
+num3 = 0x1cf  
+  
+# Python 中所有的非十进制数字，只是代码层面的编写方式，是给程序员看的  
+# Python在对上面的num1、num2、num3进行计算、打印等操作时，会自动将其转为十进制  
+print(num1, num2, num3)  
+print(num1 + 1)  # 26  
+print(str(num2))  # 540  
+print(num3 > 400)  # True  
+  
+# 使用bin()将十进制转为二进制  
+result1 = bin(25)  
+# 使用oct()将十进制转为八进制  
+result2 = oct(540)  
+# 使用hex()将十进制转为十六进制  
+result3 = hex(463)  
+# 注意：bin() oct() hex()他们返回的值类型都是字符串  
+print(result1, result2, result3)  # 0b11001 0o1034 0x1cf  
+print(type(result1), type(result2), type(result3))  # <class 'str'> <class 'str'> <class 'str'>  
+  
+# 使用int()将指定进制的数，转为十进制数字  
+value1 = int('0b11001', 2)  
+value2 = int('0o1034', 8)  
+value3 = int('0x1cf', 16)  
+print(value1, value2, value3)  # 25 540 463  
+print(type(value1), type(value2), type(value3))  # <class 'int'> <class 'int'> <class 'int'>
+```
+## 输入语句
+```python
+# 使用input()获取用户的输入  
+name = input('请输入你的姓名：')  
+age = input('请输入你的年龄：')  
+  
+# input()获取到的内容全都是字符串类型  
+print(type(age))  # <class 'str'>  
+# 将age转为整型  
+age = int(age)  
+  
+# 打印信息  
+print(f'{name}，你今年的年龄是{age}')  
+print(f'{name}，你明年的年龄是{age + 1}')
+```
+## 流程控制语句
+### 顺序
+### 分支
+- 基于判断结果，来决定走哪条路径
+#### 单分支
+```python
+age = int(input('Please enter your age: '))  
+if age >= 18:  
+    print("You are old enough to vote!")  
+    print('你是成年人')  
+print('欢迎你来学习Python！')
+```
+#### 双分支
+![330](assets/python_basic/file-20260809173116559.png)
+
+```python
+age = int(input('Please enter your age: '))  
+if age >= 18:  
+    print("You are old enough to vote!")  
+    print('你是成年人')  
+else:  
+    print('你是未成年人')  
+    print('好好加油')  
+print('欢迎你来学习Python！')
+```
+#### 多分支
+![303](assets/python_basic/file-20260809173825107.png)
+
+```python
+age = int(input('请输入你的年龄：'))  
+if age <= 10:  
+    print('你是幼儿')  
+elif age <= 18:  
+    print('你是青少年')  
+elif age <= 30:  
+    print('你是青年')  
+elif age <= 50:  
+    print('你是中年')  
+elif age <= 60:  
+    print('你是中老年')  
+else:  
+    print('你是老年')
+```
+#### 嵌套分支
+```python
+age = int(input('请输入你的年龄：'))  
+has_report = input('您是否提交了体检报告？（是/否）')  
+level = int(input('请输入你的会员等级（1/2/3）'))  
+  
+print('****程序识别结果如下****')  
+if 18 <= age <= 45:  
+    print('您的年龄符合比赛要求！')  
+    if has_report == '是':  
+        print('您已提交体检报告！')  
+        print('您可以参加比赛！')  
+        if level == 1:  
+            print(f'尊敬的{level}会员，比赛结束后，您可以领取纪念T恤')  
+        elif level == 2:  
+            print(f'尊敬的{level}会员，比赛结束后，您可以领取专业跑鞋')  
+        elif level == 2:  
+            print(f'尊敬的{level}会员，比赛结束后，您可以领取运动耳机')  
+        else:  
+            print('您输入的会员等级不正确！')  
+    elif has_report == '否':  
+        print('您未提交体检报告，不能参加比赛')  
+    else:  
+        print('您输入的体检报告有误！')  
+else:  
+    print('抱歉，参赛年龄需要在18~45之间！')
+```
+
+### 循环
+#### while循环
+```python
+n = 1  
+while n <= 10:  
+    print(f'第{n}次')  
+    n += 1  
+print(f'while循环以外的代码，此时的n是{n}')  
+  
+print('您现在身处密室，正确回答问题后才能逃出密室！')  
+riddle = '你是什么人？'  
+answer = '循环'  
+guess = ''  
+  
+while guess != answer:  
+    print(f'问题：{riddle}')  
+    guess = input('请输入答案：')  
+    if guess == answer:  
+        print('答案正确，逃脱成功！')  
+    else:  
+        print('回答错误，请再想想！')
+```
+#### for循环
+- `range(10)`：表示循环范围，`range(0,10)`即`[0,10)` 
