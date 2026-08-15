@@ -572,4 +572,434 @@ while guess != answer:
         print('回答错误，请再想想！')
 ```
 #### for循环
-- `range(10)`：表示循环范围，`range(0,10)`即`[0,10)` 
+- `range(10)`：表示循环范围，也是`range(0,10)`即`[0,10)` 
+![](assets/python_basic/file-20260815140515178.png)
+- 可迭代对象中的元素有多少个，循环就执行多少次
+- 只要不在循环内部修改可迭代对象，for循环通常是不会出现死循环的
+```python
+# 使用for循环遍历range()所指定的数字范围  
+for n in range(1, 11):  
+    print(n)  
+print(f'循环已结束，此时的n是：{n}');  
+  
+# 使用for循环遍历字符串  
+for m in 'abcdef':  
+    print(m)  
+  
+# 演示由于误操作造成的死循环
+# 备注：for循环还能遍历很多我们没有讲到的东西，比如：元组、列表、对象……
+nums = [1,2,3]  
+for n in nums:  
+    # nums.append(4)  
+    print(n)
+
+'''for循环案例'''  
+#加密代码  
+text = input('请输入加密文字：')  
+secret = ''  
+for t in text:  
+    secret += chr(ord(t) + 1)  
+print(f'经过加密后的内容：{secret}')  
+  
+# 解密代码  
+secret = input('请输入解密文字：')  
+text = ''  
+for s in secret:  
+    text += chr(ord(s) - 1)  
+print(f'经过解密后的内容：{text}')
+```
+#### 对比while与for
+- while
+	- 条件驱动循环（只要条件为True就继续循环）
+		- 写法灵活，尤其适合处理不确定循环次数的场景
+		- 但需要手动维护循环条件，维护不好容易死循环
+- for
+	- 迭代驱动循环（遍历一个可迭代对象的每一项）
+		- 语法简洁，处理可迭代对象的首选，不易发生死循环
+		- 只适合一开始就知道要循环几次的场景
+#### 嵌套循环
+```python
+# for循环实现  
+day = 1  
+for day in range(1, 31):  
+    print(f'*******📅第{day}天******')  
+    for group in range(1,4):  
+        print(f'💪这是第{group}组仰卧起坐')  
+    print(f'✅第{day}天任务完成！明天继续！ \n')  
+print(f'🥳为期{day}天的健身计划完成，我的腹肌在闪闪发光！')  
+  
+# while循环实现  
+day = 1  
+while day <= 30:  
+    print(f'*******📅第{day}天******')  
+    group = 1  
+    while group <= 3:  
+        print(f'💪这是第{group}组仰卧起坐')  
+        group += 1  
+    print(f'✅第{day}天任务完成！明天继续！ \n')  
+    day += 1  
+print(f'🥳为期{day - 1}天的健身计划完成，我的腹肌在闪闪发光！')
+```
+- `print(输出内容, end="末尾字符")`,`end`：设置**打印内容结束之后，在末尾追加的字符**，默认值为`end="\n"`
+- 定义变量的另一语法格式`q1, a1 = 'Python', 'hello'`
+- ```python
+  print("hello") 
+  # 等价 
+  print("hello", end="\n")
+  
+  '''九九乘法表'''  
+	for n in range(1, 10):  
+	    for m in range(1, n + 1):  
+	        print(f'{m}*{n}={m * n}', end='\t')  
+	    print()
+  ```
+#### continue与break
+- continue：跳过本次循环剩余语句，随后进入下一次循环
+- break：立即终止循环，不再执行后续循环
+- continue和break在for循环和while循环中均可使用，在嵌套循环中出现时，只能作用在其所在的循环上
+```python
+# 测试continue  
+# for day in range(1,5):  
+#     print(f'******第{day}天******')  
+#     print('吃饭')  
+#     continue  
+#     print('睡觉')  
+  
+for day in range(1, 5):  
+    print(f'******第{day}天******')  
+    print('吃饭')  
+    for item in range(1, 3):  
+        print(f'面包{item}')  
+        if day == 4 and item == 2:  
+            continue  
+        print(f'牛奶{item}')  
+    print('睡觉')  
+  
+# 测试break  
+# for day in range(1,5):  
+#     print(f'******第{day}天******')  
+#     print('吃饭')  
+#     break  
+#     print('睡觉')  
+  
+for day in range(1, 5):  
+    print(f'******第{day}天******')  
+    print('吃饭')  
+    for item in range(1, 3):  
+        print(f'面包{item}')  
+        if day == 3 and item == 2:  
+            break  
+        print(f'牛奶{item}')  
+    print('睡觉')
+```
+## 函数
+- 定义：组织好的、可重复使用的、用于执行特定任务的代码块
+- 作用
+	- 代码复用：提高代码复用性，减少重复代码
+	- 结构清晰：让程序更易读、更易维护
+	- 模块化开发：把程序分成若干个小功能，便于团队合作
+- 分类
+	- python中内置函数：https://docs.python.org/zh-cn/3.13/library/functions.html
+	- python中的模块：https://docs.python.org/zh-cn/3.13/py-modindex.html
+
+|分类|说明|举例|
+|---|---|---|
+|**内置函数**|无需要任何操作，直接就能使用。|`print()`、`type()`、`range()` ……|
+|**模块提供的函数**|需要导入指定的模块后，才能使用。|`math.sqrt()`、`math.floor()`……|
+|**自定义函数**|程序员自己定义的函数 (先定义再使用)。|具体写法，在下一小节讲解。|
+### 基本使用
+![](assets/python_basic/file-20260815164302529.png)
+```python
+# 定义函数  
+def welcome():  
+    print('jdjdjdj')  
+    print('jdjdjdjjeeee')  
+  
+# 调用函数  
+welcome()  
+welcome()
+```
+### 参数的使用
+- 形参num与dish的使用范围，仅限函数内
+```python
+def order(num, dish):  
+    print(f'您点的是：{num}份{dish}')  
+order(1, '辣椒炒肉')  
+order(2, '番茄炒蛋')
+```
+#### 位置参数
+- 位置参数：调用函数时，根据参数在函数定义中出现的顺序，把实参的值依次传递给对应的形参
+- 注意：使用位置参数时，不能跳过某个位置的参数，去给后面的形参赋值
+```python
+# 定义函数（接收位置参数）  
+def greet(name, gender, age, height):  
+    print(f'我叫{name}, 性别{gender}, 年龄是{age}, 身高是{height}cm')  
+# 调用函数  
+greet('张三', '男', 18, 172)  
+# 错误示例  
+# greet('张三', 18, 172)
+```
+#### 关键字参数
+- 关键字参数：调用函数时，通过`形参名=值`的形式传递实参
+- 关键字参数是不挑顺序的
+- 注意：混用位置参数时，**位置**参数必须在**关键字**参数**之前**
+```python
+# 定义函数  
+def greet(name, gender, age, height):  
+    print(f'我叫{name}, 性别{gender}, 年龄是{age}, 身高是{height}cm')  
+  
+# 调用函数（使用关键字参数）  
+greet(name='张三', gender='男', age=18, height=172)  
+greet(height=172, age=18, gender='男', name='张三')  
+greet('张三', '男', height=172, age=18)  
+  
+# 错误示例  
+# greet(height=172, age=18, '张三', '男')  
+# greet(name='张三', '男', 18, 172)  
+# greet(name='张三', '男', age=18, 172)  
+# greet(height=172, age=18, gender='男', name='张三', age=19)  
+# greet(height=172, age=18, gender='男', name='张三', school='尚硅谷')
+```
+#### 限制传参方式
+- 具体规则：`/`前边只能使用位置参数，`*`后面只能使用关键字参数
+- 注意：`/`和`*`同时使用时，`/`必须在`*`的 前面
+```python
+# 定义函数（使用/和*限制传参方式）  
+def greet(name, /, gender, *, age, height):  
+    print(f'我叫{name}, 性别{gender}, 年龄是{age}, 身高是{height}cm')  
+  
+# 正确示例  
+greet('张三', '男', age=18, height=172)  
+greet('张三', gender='男', age=18, height=172)  
+  
+# 错误示例  
+# greet(name='张三', gender='男', age=18, height=172)  
+# greet('张三', '男', 18, height=172)
+```
+#### 参数默认值
+- 参数默认值：**定义**函数时，通过`形参名=值`的形式，为参数指定一个默认值
+- 注意：默认参数必须要放在必选参数的后面，或者说：某个形参，一旦设置了默认值，那它后面的所有形参，也必须要写默认值
+```python
+# 定义函数（设置参数默认值）  
+def greet(name, gender, age, height, msg='你好'):  
+    print(f'我叫{name}, 性别{gender}, 年龄是{age}, 身高是{height}cm')  
+    print(f'我想说: {msg}')  
+  
+# 调用函数  
+greet('张三', '男', 18, 172)  
+greet('张三', '男', 18, 172, 'hello')  
+greet('张三', '男', 18, 172, msg='hello')  
+  
+# print函数底层给end参数设置了默认值  
+print('尚硅谷', end='!!')
+```
+#### 可变参数
+- 可变位置参数
+	- 定义函数时，在形参名前加`*`，可以接收**任意数量**的**位置**参数，并打包成一个**元组**
+- 可变关键字参数
+	- 定义函数时，在形参名前加`**`，可以接收**任意数量**的**关键字**参数，并打包成一个**字典**
+- 注意
+	- 可变位置参数、可变关键字参数，可以同时使用，但必须先写可变位置参数
+	- 可变位置参数、可变关键字参数，也能与其他类型的参数一起使用
+```python
+# 定义函数（使用*args去接收：可变位置参数）  
+def test1(*args):  
+    # 此处args的值，是一种新的数据类型，叫：元组  
+    print(args)  
+# 调用函数  
+test1('张三', '男', 18, 172)  # ('张三', '男', 18, 172)  
+  
+# 定义函数（使用**kwargs去接收：可变关键字参数）  
+def test2(**kwargs):  
+    # 此处kwargs的值，是一种新的数据类型，叫：字典  
+    print(kwargs)  
+# 调用函数  
+test2(name='张三', gender='男', age=18, height=172)  # {'name': '张三', 'gender': '男', 'age': 18, 'height': 172}  
+  
+# 定义函数（同时使用：可变位置参数、可变关键字参数）  
+def test3(a, b, *args, c='开心', **kwargs):  
+    print(a)  
+    print(b)  
+    print(args)  
+    print(c)  
+    print(kwargs)  
+test3('张三', '男', '吃饭', '睡觉', c='哈哈哈', age=18, height=172)
+```
+### 特殊的字面量——None
+- 目前已知的类型
+	- 字符串类型（ str ）： `'hello' '尚硅谷' '100' '52.1' ……`
+	- 整型（ int ）： `108 -256 12_000 200 ……`
+	- 浮点型（ float ）： `14.5 1.8e3 -25.2 70.56 ……`
+	- 布尔类型（bool）： `True False`
+- NoneType 类型： `None`
+	- None 是一个特殊的字面量，它表示：空值/无值/无意义。
+		- 例如`msg = None`，定义了msg变量，但目前不知道它的类型
+		- 不写None，写：`0`或`''`或`False`不行吗？——最好别写
+		- None更中立，更开放，None不暗示类型
+		- 如果确定msg以后是字符串类型，那就可以写`''`
+	- None 的类型是 NoneType
+	- None 转为布尔值值是False
+	- None 不能参与数学运算，也不能与字符串拼接
+	- 不给函数设置返回值，函数会默认返回None
+```python
+# None是一个特殊的字面量，它表示：空值 / 无值 / 无意义。  
+msg = None  
+  
+# None 的类型是 NoneType。  
+print(type(msg))  # <class 'NoneType'>  
+  
+# None 转为布尔值是 False。  
+print(bool(msg))  
+if not msg:  
+    print('你好')  
+  
+# 不能参与数学运算，也不能与字符串拼接。  
+# result1 = msg + 1  
+# result1 = msg + 'hello'
+```
+### 返回值
+- 函数执行完毕后，会把执行结果交给调用者，这个执行结果就是返回值
+- return 关键字：return 会结束函数执行，并把return后的值，作为函数的返回值
+```python
+def add(n1, n2):  
+    print(f'我收到了：{n1}、{n2}, 二者相加是：{n1 + n2}')  
+    return n1 + n2  
+  
+result = add(100, 333)  
+print(result)  
+  
+res = print('hello')  
+print(res)  # None
+```
+### 全局作用域和局部作用域
+不止这两种，此处先将这两种
+- 全局作用域：整个`.py`文件最外层为范围，就是全局作用域
+	- 全局变量：在当前文件的任意位置都能使用
+- 局部作用域：函数的内部范围，就是局部作用域
+	- 局部变量：只能在当前局部作用域中使用
+- 局部作用域和局部变量，会在函数**调用时创建**，在函数**执行结束后销毁**
+- 全局作用域和全局变量，会在程序开始时创建，在程序结束后销毁
+```python
+# 局部作用域 和 局部变量，会在函数调用时创建，在函数执行结束后自动销毁  
+def test2():  
+    m = 100  
+    m += 1  
+    print(f'我是test2函数中打印的m: {m}')  
+  
+test2()  # 101  
+test2()  # 101  
+test2()  # 101  
+  
+# 全局作用域和全局变量，会在程序开始时创建，在程序结束后销毁  
+n = 100  
+def test3():  
+    global n  
+    n += 1  
+    print(f'我是test3函数打印的n: {n}')  
+test3()  # 101  
+test3()  # 102  
+test3()  # 103
+```
+- global
+	- `global 变量名` 写在函数内部，**声明这个名字使用全局变量**；**本函数内该名字全部绑定全局，不能再生成局部同名变量**。
+	- 一旦`global a`，整个函数里所有`a`读、写都是全局。**同一个函数不能同时拥有局部 a 和全局 a**。
+	- 函数里可以**读取全局变量**（例子中的 b），不修改的情况下不需要 global；只有**想要在函数内部修改全局变量的值**，才需要 global。
+```python
+# 全局作用域 与 局部作用域，以及global的使用  
+a = 100  
+b = 200  
+  
+def test():  
+    c = '尚硅谷'  
+    d = '你好啊'  
+    global a  
+    a = 300  
+    print('函数中的打印(a) ', a)  
+    print('函数中的打印(b) ', b)  
+    print('函数中的打印(c) ', c)  
+    print('函数中的打印(d) ', d)  
+  
+test()  
+print('****************')  
+print('全局的打印(a) ', a)  
+print('全局的打印(b) ', b)  
+# print(c)  
+# print(d)
+```
+### 嵌套调用
+- 在一个函数的执行过程中，去调用了另外一个函数
+- 定义函数的时候，Python不会执行函数体中的代码，调用的时候才会
+```python
+def test1():  
+    print('进入 test1 函数')  
+    test2()  
+    print('退出 test1 函数')  
+  
+def test2():  
+    print('进入 test2 函数')  
+    test3()  
+    print('退出 test2 函数')  
+  
+def test3():  
+    print('进入 test3 函数')  
+    print('***正在执行 test3 函数')  
+    print('退出 test3 函数')  
+  
+test1()
+```
+```plaintext
+进入 test1 函数  
+进入 test2 函数  
+进入 test3 函数  
+***正在执行 test3 函数  
+退出 test3 函数  
+退出 test2 函数  
+退出 test1 函数
+```
+### 递归调用
+- 函数自己调用自己的一种操作
+- 特别注意：这两段代码在递归时，其实都需要逐层压栈，二者调用深度完全相同，只是打印的时机不同。
+- 我们之前说 “待执行收集器” 只是为了大家好理解，其实最准确的说法，其实应该叫：**函数调用栈**。
+- 每一次递归调用，都会在调用栈里压入对应的信息，因此递归必然涉及到：**多次压栈和出栈**。
+```python
+# 使用递归打印n次“你好啊”（从大到小）  
+def welcome(n):  
+    print(f'你好啊{n}')  
+    if n > 1:  
+        welcome(n - 1)  
+welcome(5)  
+  
+print('***************')  
+# 使用递归打印n次“你好啊”（从小到大）  
+def welcome1(n):  
+    if n > 1:  
+        welcome1(n - 1)  
+    print(f'你好啊{n}')  
+welcome1(5)
+```
+![124](assets/python_basic/file-20260815185629312.png)
+- 递归的应用：把一个很大的事，拆解成无数个套路**一样**的小事
+
+```python
+# 使用递归求阶乘  
+def factorial(num):  
+    if num == 0:  
+        return 1  
+    else:  
+        return num * factorial(num-1)  
+result = factorial(5)  
+print(result)
+```
+![263](assets/python_basic/file-20260815193843760.png)
+### 函数·说明文档
+- 说明文档：写在函数里的文字说明，用来描述：函数的功能、需要哪些参数、返回什么结果
+```python
+def add(a, b):  
+    """  
+    计算两个数相加的结果  
+    :param a: 第一个数  
+    :param b: 第二个数  
+    :return: 二者相加的结果  
+    """    return a + b  
+result = add(1, 2)
+```
